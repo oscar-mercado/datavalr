@@ -1,14 +1,23 @@
-#' Title
+#' Flags potential Data input errors by finding mice weight outliers
 #'
-#' @param data
-#' @param id_col
-#' @param weight_cols
-#' @param threshold
+#' `track_outlier_mice()` takes in lab mice bodyweight data and finds potential outlier mice
+#' denoting potential data entry errors. The function returns a data frame of the suspect mice
+#' and a longitudinal plot showing the mice weight over time flagging spikes and valleys in mice weight.
 #'
-#' @return
-#' @export
+#' @param data A data frame.
+#' @param id_col A string denoting the name of the column storing observation ID
+#' @param weight_cols A vector of the weight columns
+#' @param threshold A threshold of weight difference that will flag outlier mice
+#'
+#' @returns A dataframe containing the suspect mice that contain weight differences exceeding the
+#' predetermined threshold. Also returns a longitudinal plot of all suspect mice weight over time.
 #'
 #' @examples
+#' track_outlier_mice(bodyweight, id_col = "ID",
+#'   weight_cols = c("Body.Weight.1", "Body.Weight.2", "Body.Weight.3"),
+#'   threshold = 0.2)
+#'
+#' @export
 track_outlier_mice <- function(data, id_col = "ID",
                                weight_cols = c("Body.Weight.1", "Body.Weight.2",
                                                "Body.Weight.3"),

@@ -2,13 +2,21 @@
 % Please edit documentation in R/diagnose_empty_values.R
 \name{diagnose_empty_values}
 \alias{diagnose_empty_values}
-\title{Title}
+\title{Finds and Returns Columns with empty values (non-NA) and offers a table replacing empty values with NA}
 \usage{
 diagnose_empty_values(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame.}
+}
+\value{
+A list containing a modified data frame with NAs replacing empty values and
+a table containing all columns with empty values and the count of such values
 }
 \description{
-Title
+\code{diagnose_empty_values()} finds empty values in a dataframe for each column
+}
+\examples{
+diagnose_empty_values(footballbetting23)
+
 }

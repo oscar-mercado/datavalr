@@ -2,13 +2,21 @@
 % Please edit documentation in R/summarize_columns.R
 \name{summarize_columns}
 \alias{summarize_columns}
-\title{Title}
+\title{Summarizes the Class and Missingness of Columns in a Dataframe}
 \usage{
 summarize_columns(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{A data frame.}
+}
+\value{
+A summary table containing each column name along with its class and number of missing values.
 }
 \description{
-Title
+\code{summarize_columns()} finds the class of all columns in a dataframe and the number of missing values
+}
+\examples{
+summarize_columns(footballbetting23)
+summarize_columns(bodyweight)
+
 }

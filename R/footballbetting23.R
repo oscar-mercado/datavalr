@@ -1,20 +1,28 @@
 #' Football '23 Season Betting
 #'
-#' This dataset documents the betting lines for NFL games of the '23 season.
+#' This dataset documents outcomes and betting information for all NFL games of the '23 season.
 #'
 #'
 #' @format A tibble with 285 rows and 18 variables:
 #' \describe{
-#'   \item{ID}{a factor denoting penguin species (Adélie, Chinstrap and Gentoo)}
-#'   \item{Body.Weight.1}{a factor denoting island in Palmer Archipelago, Antarctica (Biscoe, Dream or Torgersen)}
-#'   \item{Date.Body.Weight.1}{a number denoting bill length (millimeters)}
-#'   \item{Body.Weight.2}{a number denoting bill depth (millimeters)}
-#'   \item{Date.Body.Weight.2}{an integer denoting flipper length (millimeters)}
-#'   \item{Body.Weight.3}{an integer denoting body mass (grams)}
-#'   \item{Date.Body.Weight.3}{a factor denoting penguin sex (female, male)}
+#'   \item{schedule_date}{A date string denoting the date that the NFL game was played}
+#'   \item{schedule_season}{A numeric value denoting the year of the NFL season}
+#'   \item{schedule_week}{A string denoting the week of the game in the regular season or the post season round}
+#'   \item{schedule_playoff}{A logical value denoting if the game was a playoff game}
+#'   \item{team_home}{A string denoting the home NFL team for the game}
+#'   \item{score_home}{An integer denoting the points scored by the home team}
+#'   \item{score_away}{An integer denoting the points scored by the away team}
+#'   \item{team_away}{A string denoting the away NFL team for the game}
+#'   \item{team_favorite_id}{A string denoting the ID (abbreviation) of the team favored in the game by sportsbooks}
+#'   \item{spread_favorite}{A numeric value denoting how many points the favorite team was favored by sportsbooks}
+#'   \item{over_under_line}{A numeric value denoting the projection for total points expected by sportsbooks}
+#'   \item{stadium}{A string denoting the stadium where the game was played}
+#'   \item{stadium_neutral}{A logical value denoting if the game was hosted at a neutral site}
+#'   \item{weather_temperature}{A numeric value denoting the temperature during the game}
+#'   \item{weather_wind_mph}{A numeric value denoting the wind speed during the game}
+#'   \item{weather_humidity}{A numeric value denoting the humidity of the stadium during the game}
+#'   \item{weather_detail}{A string denoting where the game was played (indoor v. outdoor)}
+#'   \item{over_under}{A string denoting if the game resulted in the over/under/push compared to the expected over/under line set by sportsbooks}
 #' }
-#' @source {Adélie penguins: Palmer Station Antarctica LTER and K. Gorman. 2020. Structural size measurements and isotopic signatures of foraging among adult male and female Adélie penguins (Pygoscelis adeliae) nesting along the Palmer Archipelago near Palmer Station, 2007-2009 ver 5. Environmental Data Initiative.} \doi{10.6073/pasta/98b16d7d563f265cb52372c8ca99e60f}
-#' @source {Gentoo penguins: Palmer Station Antarctica LTER and K. Gorman. 2020. Structural size measurements and isotopic signatures of foraging among adult male and female Gentoo penguin (Pygoscelis papua) nesting along the Palmer Archipelago near Palmer Station, 2007-2009 ver 5. Environmental Data Initiative.} \doi{10.6073/pasta/7fca67fb28d56ee2ffa3d9370ebda689}
-#' @source {Chinstrap penguins: Palmer Station Antarctica LTER and K. Gorman. 2020. Structural size measurements and isotopic signatures of foraging among adult male and female Chinstrap penguin (Pygoscelis antarcticus) nesting along the Palmer Archipelago near Palmer Station, 2007-2009 ver 6. Environmental Data Initiative.} \doi{10.6073/pasta/c14dfcfada8ea13a17536e73eb6fbe9e}
-#' @source {Originally published in: Gorman KB, Williams TD, Fraser WR (2014) Ecological Sexual Dimorphism and Environmental Variability within a Community of Antarctic Penguins (Genus Pygoscelis). PLoS ONE 9(3): e90081. doi:10.1371/journal.pone.0090081}
+#' @source {Dataset sourced from Kaggle: https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data?resource=download&select=spreadspoke_scores.csv}
 "footballbetting23"

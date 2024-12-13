@@ -2,7 +2,7 @@
 % Please edit documentation in R/track_outlier_mice.R
 \name{track_outlier_mice}
 \alias{track_outlier_mice}
-\title{Title}
+\title{Flags potential Data input errors by finding mice weight outliers}
 \usage{
 track_outlier_mice(
   data,
@@ -12,8 +12,26 @@ track_outlier_mice(
 )
 }
 \arguments{
-\item{threshold}{}
+\item{data}{A data frame.}
+
+\item{id_col}{A string denoting the name of the column storing observation ID}
+
+\item{weight_cols}{A vector of the weight columns}
+
+\item{threshold}{A threshold of weight difference that will flag outlier mice}
+}
+\value{
+A dataframe containing the suspect mice that contain weight differences exceeding the
+predetermined threshold. Also returns a longitudinal plot of all suspect mice weight over time.
 }
 \description{
-Title
+\code{track_outlier_mice()} takes in lab mice bodyweight data and finds potential outlier mice
+denoting potential data entry errors. The function returns a data frame of the suspect mice
+and a longitudinal plot showing the mice weight over time flagging spikes and valleys in mice weight.
+}
+\examples{
+track_outlier_mice(bodyweight, id_col = "ID",
+  weight_cols = c("Body.Weight.1", "Body.Weight.2", "Body.Weight.3"),
+  threshold = 0.2)
+
 }

@@ -2,13 +2,25 @@
 % Please edit documentation in R/validate_date_order.R
 \name{validate_date_order}
 \alias{validate_date_order}
-\title{Title}
+\title{Verifies data recorded sequentially}
 \usage{
 validate_date_order(data, date_cols)
 }
 \arguments{
-\item{date_cols}{}
+\item{data}{A data frame.}
+
+\item{date_cols}{A vector of the date columns in the data frame.}
+}
+\value{
+A table of mice that do not have dates of weight recordings in order (data entry error)
 }
 \description{
-Title
+\code{validate_date_order()} finds data entry errors where dates for lab mice weight recording do not align
+(i.e., Date.Body.Weight.2 is an earlier date than the date for initial weight)
+}
+\examples{
+validate_date_order(bodyweight, date_cols=c("Date.Body.Weight.1", "Date.Body.Weight.2",
+  "Date.Body.Weight.3"))
+
+
 }
