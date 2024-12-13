@@ -1,0 +1,43 @@
+---
+title: "datavalr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{datavalr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(datavalr)
+```
+
+```{r}
+# Add a new observation with dates out of order
+new_observation <- data.frame(
+  ID = "New.Mouse",
+  Body.Weight.1 = 22.5,
+  Date.Body.Weight.1 = "10/12/24",
+  Body.Weight.2 = 21.8,
+  Date.Body.Weight.2 = "10/5/24", # Out of order
+  Body.Weight.3 = 21.0,
+  Date.Body.Weight.3 = "10/19/24"
+)
+
+# Combine the new observation with the existing data
+body_weight_data <- rbind(bodyweight, new_observation)
+
+# Print the updated dataset
+validate_date_order(body_weight_data, 
+                    date_cols = c("Date.Body.Weight.1", 
+                                  "Date.Body.Weight.2", 
+                                  "Date.Body.Weight.3"))
+```
+
+
