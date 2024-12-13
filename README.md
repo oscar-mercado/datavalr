@@ -1,16 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# stat108project2
+# datavalr
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of stat108project2 is to …
+The goal of datavalr is to …
 
 ## Installation
 
-You can install the development version of stat108project2 from
+You can install the development version of datavalr from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -23,7 +23,7 @@ pak::pak("oscar-mercado/stat108-Rpackage")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(stat108project2)
+library(datavalr)
 ## basic example code
 ```
 
