@@ -53,3 +53,23 @@ plot(pressure)
 ```
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
+```{r}
+# Add a new observation with dates out of order
+new_observation <- data.frame(
+  ID = "New.Mouse",
+  Body.Weight.1 = 22.5,
+  Date.Body.Weight.1 = "10/12/24",
+  Body.Weight.2 = 21.8,
+  Date.Body.Weight.2 = "10/5/24", # Out of order
+  Body.Weight.3 = 21.0,
+  Date.Body.Weight.2.1 = "10/19/24"
+)
+
+# Combine the new observation with the existing data
+body_weight_data <- rbind(bodyweight, new_observation)
+
+# Print the updated dataset
+print(body_weight_data)
+```
+

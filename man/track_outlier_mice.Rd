@@ -4,7 +4,12 @@
 \alias{track_outlier_mice}
 \title{Title}
 \usage{
-track_outlier_mice(data, id_col, weight_cols, threshold = 0.2)
+track_outlier_mice(
+  data,
+  id_col = "ID",
+  weight_cols = c("Body.Weight.1", "Body.Weight.2", "Body.Weight.3"),
+  threshold = 0.2
+)
 }
 \arguments{
 \item{threshold}{}
