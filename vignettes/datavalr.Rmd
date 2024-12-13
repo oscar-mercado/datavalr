@@ -18,6 +18,65 @@ knitr::opts_chunk$set(
 library(datavalr)
 ```
 
+# Introduction
+
+The **datavalr** package provides tools for validating and assessing data quality. This vignette demonstrates how to use the core functions of the package with practical examples.
+
+
+## Installation
+
+Install the development version of the package from GitHub:
+
+```r
+# Install devtools if needed
+install.packages("devtools")
+
+# Install the datavalr package
+devtools::install_github("oscar-mercado/datavalr")
+```
+
+## datavalr
+
+### Mice Data 
+The package is designed to flag data entry errors, notifying collaborators of such errors and providing remedies. We begin by loading our lab mice dataframe: 
+
+```{r}
+df <- bodyweight
+dim(df)
+head(df, n=3)
+```
+
+### `summarize_columns()`
+Our data frame is of dimension 32x7 and we have rich columns detailing the body weight of mice at different periods of time. For more information on the data frame, execute `?bodyweight` in the console. One thing we'd like to analyze is missingness in our data and we want to know the class of our columns. This is important since our collaborators may want different classes for columns than present in our data, indicating a data entry error. For example, we'd like our date columns to be `Date` objects. We examine our columns using the package function `summarize_columns()`:
+
+```{r}
+summarize_columns(df)
+```
+
+We observe that the data frame represents our date columns as character classes. This may not be desirable to our collaborators so it is something that must be flagged. We also observe 1 missing value for a third body weight for one of the mice, examining the raw data, we know that this mice is dead so we forced an NA value. 
+
+### `track_outlier_mice()`
+Since we have weight data for mice across time, naturally we'd like to look for potential outliers that can signal a data issue. For example, collaborators that created the raw data file may have inputted the weights for incorrect mice, so it is important to analyze weight trends of mice across time. We can do this using the `track_outlier_mice()` function. 
+
+```{r}
+outlier_output <- track_outlier_mice(data = df, 
+                                     id_col = "ID", 
+                                     weight_cols = c("Body.Weight.1", 
+                                                     "Body.Weight.2", 
+                                                     "Body.Weight.3"))
+outlier_output$flagged_data
+```
+
+```{r, fig.width=6, fig.height=6}
+outlier_output$flagged_plot
+```
+
+We observe three mice in the toy dataset that have irregular weight trends. For the F_32 mice, it appears that we incorrectly input the mice's initial weight and it appears that we swapped the second and third weights for mice M_24 and F_25. This function is useful with time series data where we have multiple observations at different times for each subject, flagging irregular patterns over time that can indicate date issues that must be resolved. 
+
+### `validate_date_order()`
+
+Since we have three date variables in the toy dataset, another issue can be that the dates are not in chronological order. For example, it can not be the case that we record the initial weight of a mice on 10/12/24, but then record its weight on a second time period 10/5/24. We can use the library's `validate_date_order()` function to ensure that there are no such errors. Below we introduce an erroneous data entry and use the function to detect it:
+
 ```{r}
 # Add a new observation with dates out of order
 new_observation <- data.frame(
@@ -31,13 +90,51 @@ new_observation <- data.frame(
 )
 
 # Combine the new observation with the existing data
-body_weight_data <- rbind(bodyweight, new_observation)
+wrong_df <- rbind(bodyweight, new_observation)
 
 # Print the updated dataset
-validate_date_order(body_weight_data, 
+validate_date_order(wrong_df, 
                     date_cols = c("Date.Body.Weight.1", 
                                   "Date.Body.Weight.2", 
                                   "Date.Body.Weight.3"))
 ```
 
+### NFL Data
+Again, the function is applicable to time series data and ensures that the observations are in chronological order. Now, we can turn our attention to another data frame in the package, `footballbetting23` containing NFL games for the 2023 season. We begin by summarizing the data: 
 
+```{r}
+NFL <- footballbetting23
+head(NFL, n = 2)
+summarize_columns(NFL)
+```
+
+### `diagnose_empty_values()`
+The summary function from the package detects lots of missing values for weather related variables. Further inspection of the dataframe reveals a special nuance in that some of the values for the `weather_detail` column are empty strings. Since these values are not `NA`, R does not count this as missing. We can use the `diagnose_empty_values()` function to address such data issues: 
+
+```{r}
+unique(NFL$weather_detail)
+diagnosis <- diagnose_empty_values(NFL)
+diagnosis$Empty_Values_Summary
+head(diagnosis$Modified_Data)
+```
+
+The function provides a summary across all columns of our data frame regarding the count of empty string values. The function also provides a data frame that replaces the empty string values with proper `NA` values if the collaborator desires this solution. The function flags columns suffering from empty string values, notifying collaborators of data entry errors. 
+
+### `validate_betting_metrics()`
+The NFL dataset contains rich information regarding betting lines for all NFL games of the 2023 season. Again, we would like to detect potential data entry errors by looking for outliers this time for non-time series data. The `validate_betting_metrics()` function helps in detecting outliers by having the user define a valid range of values for betting metrics (e.g., spreads and total points), flagging observations outside of these ranges: 
+
+```{r}
+betting_outliers <- validate_betting_metrics(NFL, 
+                                             metric_cols = c("spread_favorite",
+                                                             "over_under_line"),
+                                             ranges = list(spread_favorite = c(-10, 0), 
+                                                           over_under_line = c(20, 50)))
+head(betting_outliers$spread_favorite)
+head(betting_outliers$over_under_line)
+```
+
+For each type of bet, the function returns a table of observations that are outside the user specified range of acceptable values for that type of bet. This can help collaborators flag erroneous rows in the data that may contain unrealistic values like a spread of 100 points.
+
+## Conclusion
+
+Using these functions, `datavalr` ensures the quality of data and detects pressing data issues early in the statistical analysis pipeline. 
