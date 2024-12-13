@@ -15,7 +15,7 @@ You can install the development version of datavalr from
 
 ``` r
 # install.packages("pak")
-pak::pak("oscar-mercado/stat108-Rpackage")
+pak::pak("oscar-mercado/datavalr")
 ```
 
 ## Example

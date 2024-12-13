@@ -1,9 +1,13 @@
 Package: datavalr
-Title: What the Package Does (One Line, Title Case)
+Title: Tools for Data Validation and Quality Assessment
 Version: 0.0.0.9000
 Authors@R: 
     person("Oscar", "Mercado", , "oscarmercado@college.harvard.edu", role = "cre")
-Description: What the package does (one paragraph).
+Description: 
+  The datavalr package provides tools for validating and assessing the quality of datasets. 
+  It includes functions to diagnose empty values, summarize column attributes, track outliers, 
+  validate betting metrics, and ensure chronological order in time-series data. These functions 
+  are designed to facilitate data cleaning, quality control, and exploratory data analysis.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
