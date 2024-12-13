@@ -13,7 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# datavalr
+# datavalr: Tools for Data Validation and Quality Assessment
+
+## Why should I use this package? 
+
+Data quality is critical for accurate analysis and decision-making. The **datavalr** package provides an essential toolkit for validating datasets, diagnosing common data issues, and performing quality control checks. Whether you are working with real-world messy data or aiming to ensure data integrity in predictive modeling, **datavalr** offers robust and intuitive functions for exploratory data analysis and cleaning.
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -22,7 +26,7 @@ The goal of datavalr is to ...
 
 ## Installation
 
-You can install the development version of datavalr from [GitHub](https://github.com/) with:
+You can install the development version of datavalr from [GitHub](https://github.com/oscar-mercado/datavalr) with:
 
 ``` r
 # install.packages("pak")
@@ -63,13 +67,16 @@ new_observation <- data.frame(
   Body.Weight.2 = 21.8,
   Date.Body.Weight.2 = "10/5/24", # Out of order
   Body.Weight.3 = 21.0,
-  Date.Body.Weight.2.1 = "10/19/24"
+  Date.Body.Weight.3 = "10/19/24"
 )
 
 # Combine the new observation with the existing data
 body_weight_data <- rbind(bodyweight, new_observation)
 
 # Print the updated dataset
-print(body_weight_data)
+validate_date_order(body_weight_data, 
+                    date_cols = c("Date.Body.Weight.1", 
+                                  "Date.Body.Weight.2", 
+                                  "Date.Body.Weight.3"))
 ```
 
